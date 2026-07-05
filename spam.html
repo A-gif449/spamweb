@@ -42,15 +42,24 @@
 
   a{color:var(--blue);}
   .wrap{max-width:1080px; margin:0 auto; padding:0 24px;}
-  section{padding:96px 0;}
+  section{padding:96px 0; position:relative;}
   @media (max-width:720px){ section{padding:64px 0;} }
+  section + section{border-top:1px solid var(--line);}
+
+  .icon{width:1em; height:1em; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; vertical-align:-0.15em; flex-shrink:0;}
+  .icon-box{
+    width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center;
+    background:var(--surface-2); border:1px solid var(--line); color:var(--blue); flex-shrink:0;
+  }
+  .icon-box .icon{width:19px; height:19px;}
+  .head-row{display:flex; align-items:center; gap:14px; margin-bottom:6px;}
 
   h1,h2,h3{font-family:var(--mono); font-weight:600; margin:0; letter-spacing:-0.01em;}
   .eyebrow{
     font-family:var(--mono); font-size:.72rem; letter-spacing:.14em; text-transform:uppercase;
-    color:var(--muted); margin:0 0 14px;
+    color:var(--muted); margin:0; display:flex; align-items:center; gap:7px;
   }
-  .eyebrow::before{content:"// "; color:var(--blue);}
+  .eyebrow .icon{width:13px; height:13px; color:var(--blue);}
 
   /* NAV */
   nav{
@@ -60,30 +69,57 @@
     border-bottom:1px solid var(--line);
   }
   nav .wrap{display:flex; align-items:center; justify-content:space-between; height:64px;}
-  .brand{font-family:var(--mono); font-weight:700; font-size:1.1rem; color:var(--paper); text-decoration:none; display:flex; align-items:center; gap:8px;}
-  .brand-dot{width:8px; height:8px; border-radius:50%; background:var(--ham); box-shadow:0 0 8px var(--ham);}
+  .brand{font-family:var(--mono); font-weight:700; font-size:1.1rem; color:var(--paper); text-decoration:none; display:flex; align-items:center; gap:9px;}
+  .brand-mark{
+    width:30px; height:30px; border-radius:9px; display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(155deg, var(--ham) 0%, #1c4d40 120%); color:#0c1712;
+  }
+  .brand-mark .icon{width:16px; height:16px; stroke-width:2;}
   .navlinks{display:flex; gap:28px; list-style:none; margin:0; padding:0; font-size:.9rem;}
-  .navlinks a{color:var(--muted); text-decoration:none; transition:color .15s;}
+  .navlinks a{color:var(--muted); text-decoration:none; transition:color .15s; display:flex; align-items:center; gap:6px;}
+  .navlinks a .icon{width:14px; height:14px; opacity:.75;}
   .navlinks a:hover{color:var(--paper);}
+  .nav-cta{
+    display:flex; align-items:center; gap:6px; font-family:var(--mono); font-size:.8rem; color:var(--paper);
+    background:var(--surface-2); border:1px solid var(--line); padding:8px 14px; border-radius:8px; text-decoration:none;
+    transition:border-color .15s;
+  }
+  .nav-cta:hover{border-color:var(--blue);}
+  .nav-cta .icon{width:14px; height:14px; color:var(--ham);}
   @media (max-width:640px){ .navlinks{display:none;} }
 
   /* HERO */
-  .hero{padding-top:88px; padding-bottom:64px;}
+  .hero{padding-top:88px; padding-bottom:64px; overflow:hidden;}
+  .hero::before{
+    content:""; position:absolute; top:-180px; right:-120px; width:600px; height:600px; z-index:-1;
+    background:radial-gradient(circle, rgba(91,140,255,.14) 0%, rgba(47,217,166,.08) 45%, transparent 72%);
+    filter:blur(10px);
+  }
   .hero-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:56px; align-items:center;}
   @media (max-width:880px){ .hero-grid{grid-template-columns:1fr;} }
+  .trust-badge{
+    display:inline-flex; align-items:center; gap:8px; font-family:var(--mono); font-size:.72rem;
+    color:var(--ham); background:var(--ham-dim); border:1px solid var(--ham); padding:6px 12px;
+    border-radius:20px; margin-bottom:20px; letter-spacing:.03em;
+  }
+  .trust-badge .icon{width:13px; height:13px;}
   .hero h1{font-size:clamp(2.1rem, 4.6vw, 3.4rem); line-height:1.12; color:var(--paper);}
   .hero h1 em{font-style:normal; color:var(--ham);}
   .hero p.lede{color:var(--muted); font-size:1.05rem; margin:22px 0 30px; max-width:46ch;}
-  .stat-row{display:flex; gap:28px; flex-wrap:wrap; margin-bottom:34px;}
-  .stat{font-family:var(--mono);}
-  .stat .num{font-size:1.5rem; font-weight:700; color:var(--paper); display:block;}
-  .stat .lab{font-size:.68rem; color:var(--muted); letter-spacing:.08em; text-transform:uppercase;}
+  .stat-row{display:flex; gap:0; flex-wrap:wrap; margin-bottom:34px; border:1px solid var(--line); border-radius:12px; overflow:hidden;}
+  .stat{font-family:var(--mono); padding:16px 22px; flex:1; min-width:120px; display:flex; align-items:center; gap:10px;}
+  .stat:not(:last-child){border-right:1px solid var(--line);}
+  .stat .icon{width:17px; height:17px; color:var(--blue);}
+  .stat > span{display:flex; flex-direction:column;}
+  .stat .num{font-size:1.3rem; font-weight:700; color:var(--paper); display:block; line-height:1.1;}
+  .stat .lab{font-size:.64rem; color:var(--muted); letter-spacing:.07em; text-transform:uppercase;}
   .btn{
-    display:inline-flex; align-items:center; gap:8px;
+    display:inline-flex; align-items:center; gap:9px;
     background:var(--blue); color:#0c111f; font-family:var(--mono); font-weight:600;
     padding:13px 22px; border-radius:8px; text-decoration:none; font-size:.92rem;
     border:none; cursor:pointer; transition:transform .15s, box-shadow .15s;
   }
+  .btn .icon{width:15px; height:15px;}
   .btn:hover{transform:translateY(-1px); box-shadow:0 8px 22px rgba(91,140,255,.25);}
   .btn-ghost{background:transparent; border:1px solid var(--line); color:var(--paper);}
 
@@ -91,6 +127,7 @@
   .scanner{
     position:relative; background:var(--surface); border:1px solid var(--line);
     border-radius:16px; padding:20px; overflow:hidden;
+    box-shadow:0 30px 60px -30px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.02) inset;
   }
   .scanner-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; font-family:var(--mono); font-size:.72rem; color:var(--muted);}
   .msg-list{display:flex; flex-direction:column; gap:10px; position:relative;}
@@ -102,7 +139,11 @@
     position:absolute; top:-9px; right:10px; font-family:var(--mono); font-size:.62rem;
     font-weight:700; padding:2px 8px; border-radius:5px; letter-spacing:.05em;
     opacity:0; transform:translateY(4px); transition:opacity .3s, transform .3s;
+    display:inline-flex; align-items:center; gap:4px;
   }
+  .msg .tag .icon{width:10px; height:10px;}
+  .scanner-head span{display:flex; align-items:center; gap:6px;}
+  .scanner-head .icon{width:12px; height:12px;}
   .msg.tagged .tag{opacity:1; transform:translateY(0);}
   .msg.ham .tag{background:var(--ham-dim); color:var(--ham); border:1px solid var(--ham);}
   .msg.spam .tag{background:var(--spam-dim); color:var(--spam); border:1px solid var(--spam);}
@@ -138,7 +179,8 @@
     width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center;
     font-weight:700; margin-bottom:16px; position:relative; z-index:1;
   }
-  .step h3{font-size:1rem; color:var(--paper); margin-bottom:8px;}
+  .step h3{font-size:1rem; color:var(--paper); margin-bottom:8px; display:flex; align-items:center; gap:8px;}
+  .step h3 .icon{width:16px; height:16px; color:var(--ham);}
   .step p{font-size:.86rem; color:var(--muted); margin:0; padding-right:12px;}
 
   /* DATASET */
@@ -171,6 +213,7 @@
   .cm .hd{color:var(--muted); display:flex; align-items:center; justify-content:center; padding:8px;}
   .cm .rowlab{color:var(--muted); display:flex; align-items:center; padding:8px; writing-mode:vertical-rl; transform:rotate(180deg); justify-content:center;}
   .cm .cell{border-radius:8px; padding:18px 10px; text-align:center; border:1px solid var(--line);}
+  .cm .cell .icon{width:16px; height:16px; display:block; margin:0 auto 4px;}
   .cm .cell .v{font-size:1.5rem; font-weight:700; display:block;}
   .cm .cell.correct{background:rgba(47,217,166,.08); border-color:var(--ham); color:var(--ham);}
   .cm .cell.wrong{background:rgba(255,107,74,.08); border-color:var(--spam); color:var(--spam);}
@@ -182,7 +225,7 @@
   .metric-list .v{font-family:var(--mono); font-weight:600; color:var(--paper);}
 
   /* LIVE DEMO */
-  .demo-card{background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:28px;}
+  .demo-card{background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:28px; box-shadow:0 24px 48px -24px rgba(0,0,0,.55);}
   textarea{
     width:100%; min-height:110px; background:var(--surface-2); color:var(--paper);
     border:1px solid var(--line); border-radius:10px; padding:14px; font-family:var(--sans);
@@ -193,15 +236,18 @@
   .chip{
     background:var(--surface-2); border:1px solid var(--line); color:var(--muted);
     font-family:var(--mono); font-size:.78rem; padding:8px 12px; border-radius:20px; cursor:pointer;
-    transition:border-color .15s, color .15s;
+    transition:border-color .15s, color .15s; display:inline-flex; align-items:center; gap:6px;
   }
+  .chip .icon{width:12px; height:12px;}
   .chip:hover{border-color:var(--blue); color:var(--paper);}
   .result{margin-top:24px; display:none;}
   .result.show{display:block;}
   .verdict{display:flex; align-items:center; gap:16px; margin-bottom:18px;}
   .verdict .badge{
     font-family:var(--mono); font-weight:700; font-size:1.1rem; padding:10px 18px; border-radius:9px;
+    display:inline-flex; align-items:center; gap:8px;
   }
+  .verdict .badge .icon{width:18px; height:18px;}
   .verdict.ham .badge{background:var(--ham-dim); color:var(--ham); border:1px solid var(--ham);}
   .verdict.spam .badge{background:var(--spam-dim); color:var(--spam); border:1px solid var(--spam);}
   .verdict .conf{font-family:var(--mono); color:var(--muted); font-size:.85rem;}
@@ -223,15 +269,33 @@
 </head>
 <body>
 
+<svg style="display:none" aria-hidden="true">
+  <symbol id="i-funnel" viewBox="0 0 24 24"><path d="M3 4h18l-7 9v6l-4 2v-8L3 4z"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-broom" viewBox="0 0 24 24"><path d="M19 4L10 13"/><path d="M8 15l-4 4"/><path d="M10 13c-2 0-5 1-6 4 3 1 6 0 7-2"/><path d="M13 6l5 5"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 5h16l-6 8v6l-4-2v-4L4 5z"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+  <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.6" fill="currentColor"/></symbol>
+  <symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+  <symbol id="i-bars" viewBox="0 0 24 24"><path d="M4 20V10M12 20V4M20 20v-7"/></symbol>
+  <symbol id="i-table" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/></symbol>
+  <symbol id="i-message" viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4V5z"/></symbol>
+  <symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3l4 3 4 3v6l-4 3-4 3-4-3-4-3V9l4-3 4-3z"/><path d="M12 8v5M12 16.5v.01"/></symbol>
+  <symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 4v14M6 13l6 6 6-6"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z"/></symbol>
+</svg>
+
 <nav>
   <div class="wrap">
-    <a class="brand" href="#top"><span class="brand-dot"></span>Sift</a>
+    <a class="brand" href="#top"><span class="brand-mark"><svg class="icon"><use href="#i-funnel"/></svg></span>Sift</a>
     <ul class="navlinks">
-      <li><a href="#how">How it works</a></li>
-      <li><a href="#dataset">Dataset</a></li>
-      <li><a href="#results">Results</a></li>
-      <li><a href="#demo">Live demo</a></li>
+      <li><a href="#how"><svg class="icon"><use href="#i-cpu"/></svg>How it works</a></li>
+      <li><a href="#dataset"><svg class="icon"><use href="#i-database"/></svg>Dataset</a></li>
+      <li><a href="#results"><svg class="icon"><use href="#i-bars"/></svg>Results</a></li>
     </ul>
+    <a class="nav-cta" href="#demo"><svg class="icon"><use href="#i-spark"/></svg>Live demo</a>
   </div>
 </nav>
 
@@ -240,24 +304,25 @@
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <p class="eyebrow">Machine Learning · Text Classification</p>
+      <span class="trust-badge"><svg class="icon"><use href="#i-shield"/></svg>Runs 100% client-side · no data leaves your device</span>
+      <p class="eyebrow"><svg class="icon"><use href="#i-cpu"/></svg>Machine Learning · Text Classification</p>
       <h1>Sift reads every message <em>before</em> you do.</h1>
       <p class="lede">A Naive Bayes model trained on 5,169 real text messages — built to tell spam and scams apart from genuine conversation. The demo below runs the actual trained model, live, in this page.</p>
       <div class="stat-row">
-        <div class="stat"><span class="num">97.4%</span><span class="lab">Accuracy</span></div>
-        <div class="stat"><span class="num">93%</span><span class="lab">Precision</span></div>
-        <div class="stat"><span class="num">&lt;10ms</span><span class="lab">In-browser</span></div>
+        <div class="stat"><svg class="icon"><use href="#i-target"/></svg><span><span class="num">97.4%</span><span class="lab">Accuracy</span></span></div>
+        <div class="stat"><svg class="icon"><use href="#i-check-circle"/></svg><span><span class="num">93%</span><span class="lab">Precision</span></span></div>
+        <div class="stat"><svg class="icon"><use href="#i-cpu"/></svg><span><span class="num">&lt;10ms</span><span class="lab">In-browser</span></span></div>
       </div>
-      <a href="#demo" class="btn">Try it on your own message ↓</a>
+      <a href="#demo" class="btn">Try it on your own message<svg class="icon"><use href="#i-arrow-down"/></svg></a>
     </div>
     <div class="scanner" aria-hidden="true">
       <div class="scan-line"></div>
-      <div class="scanner-head"><span>live_feed.log</span><span>scanning…</span></div>
+      <div class="scanner-head"><span><svg class="icon"><use href="#i-message"/></svg> live_feed.log</span><span>scanning…</span></div>
       <div class="msg-list" id="heroFeed">
-        <div class="msg ham"><span class="tag">HAM</span>Hey, are we still on for lunch tomorrow?</div>
-        <div class="msg spam"><span class="tag">SPAM</span>You've WON a $1000 gift card! Claim now →</div>
-        <div class="msg ham"><span class="tag">HAM</span>Can you send today's class notes?</div>
-        <div class="msg spam"><span class="tag">SPAM</span>URGENT: verify your account or it gets suspended</div>
+        <div class="msg ham"><span class="tag"><svg class="icon"><use href="#i-check-circle"/></svg>HAM</span>Hey, are we still on for lunch tomorrow?</div>
+        <div class="msg spam"><span class="tag"><svg class="icon"><use href="#i-alert"/></svg>SPAM</span>You've WON a $1000 gift card! Claim now →</div>
+        <div class="msg ham"><span class="tag"><svg class="icon"><use href="#i-check-circle"/></svg>HAM</span>Can you send today's class notes?</div>
+        <div class="msg spam"><span class="tag"><svg class="icon"><use href="#i-alert"/></svg>SPAM</span>URGENT: verify your account or it gets suspended</div>
       </div>
     </div>
   </div>
@@ -266,15 +331,16 @@
 <section id="how">
   <div class="wrap">
     <div class="sec-head">
+      <div class="head-row"><span class="icon-box"><svg class="icon"><use href="#i-cpu"/></svg></span><p class="eyebrow" style="margin:0"><svg class="icon"><use href="#i-spark"/></svg>How it works</p></div>
       <h2>Five steps, start to finish</h2>
       <p>Every message — the ones used to train the model, and the one you type into the demo — passes through the exact same pipeline.</p>
     </div>
     <div class="pipeline">
-      <div class="step"><div class="n">01</div><h3>Clean</h3><p>Lowercase the text and strip punctuation, numbers, and symbols.</p></div>
-      <div class="step"><div class="n">02</div><h3>Filter</h3><p>Remove common filler words ("the", "is", "at") that carry no signal.</p></div>
-      <div class="step"><div class="n">03</div><h3>Vectorize</h3><p>Count how often each remaining word appears — a "bag of words".</p></div>
-      <div class="step"><div class="n">04</div><h3>Train</h3><p>Naive Bayes learns the odds of each word appearing in spam vs. genuine messages.</p></div>
-      <div class="step"><div class="n">05</div><h3>Predict</h3><p>New text is scored against both odds, and the higher probability wins.</p></div>
+      <div class="step"><div class="n">01</div><h3><svg class="icon"><use href="#i-broom"/></svg> Clean</h3><p>Lowercase the text and strip punctuation, numbers, and symbols.</p></div>
+      <div class="step"><div class="n">02</div><h3><svg class="icon"><use href="#i-filter"/></svg> Filter</h3><p>Remove common filler words ("the", "is", "at") that carry no signal.</p></div>
+      <div class="step"><div class="n">03</div><h3><svg class="icon"><use href="#i-grid"/></svg> Vectorize</h3><p>Count how often each remaining word appears — a "bag of words".</p></div>
+      <div class="step"><div class="n">04</div><h3><svg class="icon"><use href="#i-cpu"/></svg> Train</h3><p>Naive Bayes learns the odds of each word appearing in spam vs. genuine messages.</p></div>
+      <div class="step"><div class="n">05</div><h3><svg class="icon"><use href="#i-target"/></svg> Predict</h3><p>New text is scored against both odds, and the higher probability wins.</p></div>
     </div>
   </div>
 </section>
@@ -282,6 +348,7 @@
 <section id="dataset">
   <div class="wrap">
     <div class="sec-head">
+      <div class="head-row"><span class="icon-box"><svg class="icon"><use href="#i-database"/></svg></span><p class="eyebrow" style="margin:0"><svg class="icon"><use href="#i-spark"/></svg>Dataset</p></div>
       <h2>The dataset</h2>
       <p>Public, labeled, and widely used as the academic standard for spam-detection research.</p>
     </div>
@@ -302,12 +369,13 @@
 <section id="results">
   <div class="wrap">
     <div class="sec-head">
+      <div class="head-row"><span class="icon-box"><svg class="icon"><use href="#i-bars"/></svg></span><p class="eyebrow" style="margin:0"><svg class="icon"><use href="#i-spark"/></svg>Results</p></div>
       <h2>We tested three algorithms first</h2>
       <p>Same cleaned data, same word features, three different classifiers — compared before picking a winner.</p>
     </div>
     <div class="bars">
       <div class="bar-row winner">
-        <div class="top"><span class="name">Naive Bayes</span><span class="val">97.4% accuracy · 93.0% precision</span></div>
+        <div class="top"><span class="name"><svg class="icon" style="color:var(--ham); width:14px; height:14px; margin-right:4px;"><use href="#i-spark"/></svg>Naive Bayes</span><span class="val">97.4% accuracy · 93.0% precision</span></div>
         <div class="bar-track"><div class="bar-fill" style="width:97.4%"></div></div>
       </div>
       <div class="bar-row">
@@ -323,16 +391,20 @@
 
     <div style="height:56px"></div>
 
+    <div class="head-row" style="margin-bottom:24px;">
+      <span class="icon-box"><svg class="icon"><use href="#i-table"/></svg></span>
+      <h3 style="font-size:1.1rem; color:var(--paper);">Confusion matrix — Naive Bayes on 1,034 test messages</h3>
+    </div>
     <div class="cm-wrap">
       <div>
         <div class="cm">
           <div class="hd"></div><div class="hd">Predicted Ham</div><div class="hd">Predicted Spam</div>
           <div class="rowlab">Actual Ham</div>
-          <div class="cell correct"><span class="v">887</span>correct</div>
-          <div class="cell wrong"><span class="v">9</span>false alarm</div>
+          <div class="cell correct"><svg class="icon"><use href="#i-check-circle"/></svg><span class="v">887</span>correct</div>
+          <div class="cell wrong"><svg class="icon"><use href="#i-alert"/></svg><span class="v">9</span>false alarm</div>
           <div class="rowlab">Actual Spam</div>
-          <div class="cell wrong"><span class="v">18</span>missed</div>
-          <div class="cell correct"><span class="v">120</span>caught</div>
+          <div class="cell wrong"><svg class="icon"><use href="#i-alert"/></svg><span class="v">18</span>missed</div>
+          <div class="cell correct"><svg class="icon"><use href="#i-check-circle"/></svg><span class="v">120</span>caught</div>
         </div>
       </div>
       <div>
@@ -351,6 +423,7 @@
 <section id="demo">
   <div class="wrap">
     <div class="sec-head">
+      <div class="head-row"><span class="icon-box"><svg class="icon"><use href="#i-message"/></svg></span><p class="eyebrow" style="margin:0"><svg class="icon"><use href="#i-spark"/></svg>Live demo</p></div>
       <h2>Try the live detector</h2>
       <p>This isn't a mockup — it's the trained Naive Bayes model, running entirely in your browser.</p>
     </div>
@@ -358,10 +431,10 @@
       <span class="badge-live"><span class="pulse"></span>model loaded · client-side inference</span>
       <textarea id="msgInput" placeholder="Type or paste any message here… e.g. 'Congratulations! You've won a free iPhone, click to claim now!'"></textarea>
       <div class="demo-controls">
-        <button class="btn" id="analyzeBtn">Analyze message</button>
-        <button class="chip" data-fill="Congratulations! You have WON a $1000 Walmart gift card. Click here to claim now before it expires!">Try a scam example</button>
-        <button class="chip" data-fill="Hey, are we still meeting for lunch tomorrow at noon?">Try a normal message</button>
-        <button class="chip" data-fill="URGENT! Your bank account has been suspended. Verify immediately at this link or lose access.">Try a phishing example</button>
+        <button class="btn" id="analyzeBtn"><svg class="icon"><use href="#i-target"/></svg>Analyze message</button>
+        <button class="chip" data-fill="Congratulations! You have WON a $1000 Walmart gift card. Click here to claim now before it expires!"><svg class="icon"><use href="#i-alert"/></svg> Try a scam example</button>
+        <button class="chip" data-fill="Hey, are we still meeting for lunch tomorrow at noon?"><svg class="icon"><use href="#i-check-circle"/></svg> Try a normal message</button>
+        <button class="chip" data-fill="URGENT! Your bank account has been suspended. Verify immediately at this link or lose access."><svg class="icon"><use href="#i-shield"/></svg> Try a phishing example</button>
       </div>
 
       <div class="result" id="resultBox">
@@ -381,7 +454,7 @@
 
 <footer>
   <div class="wrap">
-    <span class="fmono">Sift — Spam Detection using Naive Bayes</span>
+    <span class="fmono" style="display:flex; align-items:center; gap:8px;"><svg class="icon" style="width:14px;height:14px;color:var(--ham);"><use href="#i-funnel"/></svg>Sift — Spam Detection using Naive Bayes</span>
     <span>Built with Python (scikit-learn) for training · vanilla JavaScript for live inference · no server required</span>
   </div>
 </footer>
@@ -452,7 +525,9 @@
     const hl = document.getElementById('highlighted');
 
     verdict.className = 'verdict ' + (res.isSpam ? 'spam' : 'ham');
-    badge.textContent = res.isSpam ? '🚫 SPAM' : '✅ HAM · Genuine';
+    badge.innerHTML = res.isSpam
+      ? '<svg class="icon"><use href="#i-alert"/></svg> SPAM'
+      : '<svg class="icon"><use href="#i-check-circle"/></svg> HAM · Genuine';
     conf.textContent = 'Confidence: ' + (res.confidence*100).toFixed(1) + '%';
     hl.innerHTML = renderHighlight(text, res.tokens);
     box.classList.add('show');
